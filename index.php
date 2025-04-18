@@ -2,7 +2,7 @@
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-
+//
 require 'vendor/autoload.php';
 
 function getToken(){
