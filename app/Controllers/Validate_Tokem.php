@@ -26,7 +26,7 @@ class Validate_Tokem {
             return $decodeToken;
         } catch (\Exception $e) {
             Flight::halt(403, json_encode([
-                'message' => $e->getMessage(),
+                'message' => "Error: ".$e->getMessage(),
                 'isSuccess' => false
             ]));
         }
