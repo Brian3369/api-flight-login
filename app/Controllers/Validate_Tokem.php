@@ -1,7 +1,9 @@
 <?php 
+namespace App\Controllers;
+use App\Models\Conexion\Conexion;
+use Flight;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-require 'vendor/autoload.php';
 
 class Validate_Tokem {
     private $db;
@@ -22,7 +24,7 @@ class Validate_Tokem {
             }
             $decodeToken = JWT::decode($header['Authorization'], new Key('example_key', 'HS256'));
             return $decodeToken;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Flight::halt(403, json_encode([
                 'message' => $e->getMessage(),
                 'isSuccess' => false

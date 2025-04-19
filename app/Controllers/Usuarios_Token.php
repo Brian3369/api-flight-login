@@ -1,5 +1,8 @@
 <?php
+namespace App\Controllers;
+use Flight;
 use Firebase\JWT\JWT;
+use App\Models\Conexion\Conexion;
 
 class Usuarios_Token {
     private $db;

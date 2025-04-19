@@ -1,5 +1,8 @@
 <?php
-require 'Controllers/Validate_Tokem.php';
+namespace App\Models;
+use Flight;
+use App\Models\Conexion\Conexion;
+use App\Controllers\Validate_Tokem;
 
 class Usuarios{
     private $db;
