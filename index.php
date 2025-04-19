@@ -2,7 +2,7 @@
 require 'vendor/autoload.php';
 require 'Models/Conexion/Conexion.php';
 require 'Models/Usuarios.php';
-require 'Models/Usuarios_Token.php';
+require 'Controllers/Usuarios_Token.php';
 
 Flight::route('POST /auth', function(){
     try {
