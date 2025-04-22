@@ -23,7 +23,7 @@ class Usuarios_Token {
         ])){
             $user = $stmt->fetch();
             $now = strtotime('now');
-            $key = 'example_key';
+            $key = $_ENV['JWT_SECRET_KEY'];
             $payload = [
                 'exp' => $now + 3600,
                 'data' => $user['id'],

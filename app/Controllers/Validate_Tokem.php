@@ -22,7 +22,8 @@ class Validate_Tokem {
                     'isSuccess' => false
                 ]));
             }
-            $decodeToken = JWT::decode($header['Authorization'], new Key('example_key', 'HS256'));
+            $key = $_ENV['JWT_SECRET_KEY'];
+            $decodeToken = JWT::decode($header['Authorization'], new Key($key, 'HS256'));
             return $decodeToken;
         } catch (\Exception $e) {
             Flight::halt(403, json_encode([

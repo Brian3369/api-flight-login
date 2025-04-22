@@ -2,7 +2,9 @@
 require  'vendor/autoload.php';
 use App\Controllers\Usuarios_Token;
 use App\Models\Usuarios;
-use Flight;
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+//use Flight;
 
 
 Flight::route('POST /auth', function(){
