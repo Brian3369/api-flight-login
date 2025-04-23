@@ -3,8 +3,9 @@ namespace App\Models;
 use Flight;
 use App\Models\Conexion\Conexion;
 use App\Controllers\Validate_Tokem;
+use App\Models\interface\IRepositorio;
 
-class Usuarios{
+class Usuarios implements IRepositorio{
     private $db;
     private $token;
 
@@ -14,10 +15,46 @@ class Usuarios{
         $this->token = new Validate_Tokem();
     }
 
-    public function get_all() {
+    // public function get_all() {
+    //     $stmt = $this->db->prepare('select * from usuario');
+    //     $stmt->execute();
+    //     $datos = $stmt->fetchAll();
+    //     $usuarios = [];
+    
+    //     foreach($datos as $row){
+    //         $usuarios[] = [
+    //             'id' => $row['id'],
+    //             'nombre' => $row['nombre'],
+    //             'password' => $row['password'],
+    //             'email' => $row['email'],
+    //             'apellido' => $row['apellido'],
+    //         ];
+    //     }
+    
+    //     Flight::json([
+    //         'datos' => $usuarios,
+    //         'message' => 'Lista de usuarios',
+    //         'isSuccess' => true
+    //     ]);
+    // }
+
+    public function get_all($page) {
+        if(!isset($page)){
+            $page = 1;
+        }
+
         $stmt = $this->db->prepare('select * from usuario');
         $stmt->execute();
-        $datos = $stmt->fetchAll();
+        ///////////////////////////////////////////
+        $total = $stmt->rowCount(); 
+        $total_per_page = 10; 
+        $pages = ceil($total / $total_per_page); 
+        $offset = ($page - 1) * $total_per_page; 
+        $stmt2 = $this->db->prepare("select * from usuario limit $offset, $total_per_page"); 
+        $stmt2->execute();
+        ///////////////////////////////////////////
+        $datos = $stmt2->fetchAll();
+
         $usuarios = [];
     
         foreach($datos as $row){
@@ -32,6 +69,9 @@ class Usuarios{
     
         Flight::json([
             'datos' => $usuarios,
+            'page' => $page,
+            'total_page' => $pages,
+            'total_rows' => $total,
             'message' => 'Lista de usuarios',
             'isSuccess' => true
         ]);
